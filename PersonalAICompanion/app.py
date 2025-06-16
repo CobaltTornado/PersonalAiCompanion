@@ -71,12 +71,12 @@ def ws(socket):
     app.logger.info("WebSocket client connected.")
     progress_manager.add_connection(socket)
     try:
-        # Keep the connection alive by waiting for messages.
+        # This loop will run until the client disconnects.
+        # The receive() call blocks, waiting for a message or a close signal.
         while True:
-            # The receive call will block until a message is received or the connection is closed.
-            socket.receive(timeout=60 * 5) # Use a timeout to prevent blocking indefinitely
-    except Exception:
-        app.logger.info("WebSocket connection timed out or closed by client.")
+            socket.receive()
+    except ConnectionClosed:
+        app.logger.info("WebSocket connection closed by client.")
     finally:
         progress_manager.remove_connection(socket)
         app.logger.info("WebSocket client removed from manager.")
