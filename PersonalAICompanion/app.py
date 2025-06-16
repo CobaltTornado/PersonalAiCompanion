@@ -8,6 +8,7 @@ from main_agent import ChiefArchitectAgent, ProgressManager
 
 # Initialize Flask App and WebSocket
 app = Flask(__name__)
+app.config['SOCK_SERVER_OPTIONS'] = {'ping_interval': 25}
 sock = Sock(app)
 
 # --- Global State Management ---
