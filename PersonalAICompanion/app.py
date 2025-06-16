@@ -4,6 +4,7 @@ import threading
 from flask import Flask, render_template, request, jsonify
 from flask_sock import Sock
 from main_agent import ChiefArchitectAgent, ProgressManager
+from simple_websocket.errors import ConnectionClosed
 
 
 # Initialize Flask App and WebSocket
